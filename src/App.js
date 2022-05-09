@@ -12,7 +12,7 @@ function App() {
     setToDo("");
     setToDos((currentArray) => [...currentArray, toDo]);
   };
-  // console.log("헤응" + toDos);
+  console.log("헤응" + toDos);
   return (
     <div>
       <h1>내 Todos({/*`${toDos}`*/ toDos.length})</h1>
