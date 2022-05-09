@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
 
 function App() {
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChange = (e) => setToDo(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (toDo === "") {
+      return;
+    }
+    setToDo("");
+    setToDos((currentArray) => [...currentArray, toDo]);
+  };
+  // console.log("헤응" + toDos);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>내 Todos({/*`${toDos}`*/ toDos.length})</h1>
+      <form>
+        <input
+          type="text"
+          value={toDo}
+          onChange={onChange}
+          placeholder="todo 리스트 적으세요"
+        ></input>
+        <button onClick={onSubmit}>Save Todo</button>
+      </form>
+      <hr />
+      {toDos.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
     </div>
   );
 }
