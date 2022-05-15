@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import Movie from "../components/Movie";
+import styles from "./Home.module.css";
 
 function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+
   const getmovies = async () => {
     const json = await (
       await fetch(
@@ -13,21 +15,27 @@ function Home() {
     setMovies(json.data.movies);
     setLoading(false);
   };
+
   useEffect(() => {
     getmovies();
   }, []);
-  console.log("영화입니다" + JSON.stringify(movies, null, 4));
+  // console.log("영화입니다" + JSON.stringify(movies, null, 4));
+
   return (
-    <div>
+    <div className={styles.container}>
       {loading ? (
-        <h1>Loading</h1>
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
       ) : (
-        <div>
+        <div className={styles.movies}>
           {movies.map((movie) => (
             <Movie
+              key={movie.id}
               id={movie.id}
               medium_cover_image={movie.medium_cover_image}
               title={movie.title}
+              year={movie.year}
               summary={movie.summary}
               genres={movie.genres}
             />
